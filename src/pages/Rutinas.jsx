@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../utils/api';
 
 const Rutinas = () => {
   const [rutinas, setRutinas] = useState([]);
@@ -21,7 +22,7 @@ const Rutinas = () => {
     try {
       console.log('📡 Solicitando rutinas...');
 
-      const response = await fetch('http://localhost:8000/api/get_rutina', {
+      const response = await apiFetch('/api/get_rutina', {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
@@ -79,7 +80,7 @@ const Rutinas = () => {
 
     console.log('📦 Datos con entrenador:', dataConEntrenador);
 
-    fetch('http://localhost:8000/api/create_rutina', {
+    apiFetch('/api/create_rutina', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

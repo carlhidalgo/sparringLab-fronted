@@ -6,6 +6,7 @@ import theme from '../theme';
 import { Link as RouterLink } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode"; // Asegúrate de tener jwt-decode instalado
+import { apiFetch } from '../utils/api';
 
 const Login = () => {
   const [formData, setFormData] = useState({ email: '', password: '' });
@@ -27,7 +28,7 @@ const Login = () => {
     console.log(' Enviando datos al backend:', formData);
 
     try {
-      const response = await fetch('http://localhost:8000/api/login/', {
+      const response = await apiFetch('/api/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -82,7 +83,7 @@ const Login = () => {
 
       // Aquí enviarías el idToken (o el accessToken si usas otro flujo) a tu backend
       // para verificarlo y crear/loguear al usuario en tu sistema.
-      const backendResponse = await fetch('http://localhost:8000/api/auth/google/', { // Endpoint del backend para Google Auth
+      const backendResponse = await apiFetch('/api/auth/google/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

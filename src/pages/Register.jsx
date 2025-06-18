@@ -6,6 +6,7 @@ import { TextField, Button, Box, Typography, ThemeProvider, Divider } from '@mui
 import theme from '../theme';
 import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from "jwt-decode"; // Asegúrate de tener jwt-decode instalado
+import { apiFetch } from '../utils/api';
 
 const isValidEmail = (email) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,10}$/;
@@ -79,7 +80,7 @@ const Register = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/register/', {
+      const response = await apiFetch('/api/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -115,12 +116,12 @@ const Register = () => {
       // Enviar el token al backend para registrar al usuario
       // Este endpoint debería manejar la creación de un nuevo usuario si no existe
       // y luego loguearlo, devolviendo el usuario y el token de tu aplicación.
-      const backendResponse = await fetch('http://localhost:8000/api/auth/google/register/', { // Endpoint del backend para Google Register
+      const backendResponse = await apiFetch('/api/auth/google/register/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ token: idToken }), 
+        body: JSON.stringify({ token: idToken }),
       });
 
       const result = await backendResponse.json();

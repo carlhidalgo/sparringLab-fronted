@@ -2,6 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import './Torneos.css';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../utils/api';
 
 function Torneos() {
   const [tournaments, setTournaments] = useState([]);
@@ -14,7 +15,7 @@ function Torneos() {
   useEffect(() => {
     const fetchTournaments = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/torneo/', {
+        const response = await apiFetch('/api/torneo/', {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

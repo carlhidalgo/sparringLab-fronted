@@ -4,6 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { supabase } from '../supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import { MenuItem } from '@mui/material';
+import { apiFetch } from '../utils/api';
 
 function CrearTorneo() {
     const [formData, setFormData] = useState({
@@ -62,7 +63,7 @@ function CrearTorneo() {
         }
         const dataToSend = { ...formData, user_id: user.id };
         try {
-            const res = await fetch('http://localhost:8000/api/crear-torneo/', {
+            const res = await apiFetch('/api/crear-torneo/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

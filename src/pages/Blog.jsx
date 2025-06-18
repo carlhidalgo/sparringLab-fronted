@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
+import { apiFetch } from '../utils/api';
 import './Blog.css'; // Importar el nuevo archivo CSS
 
 const Blogs = () => {
@@ -15,7 +16,7 @@ const Blogs = () => {
     const loadBlogs = async () => {
       setLoading(true);
       try {
-        const response = await fetch('http://localhost:8000/api/blogs/');
+        const response = await apiFetch('/api/blogs/');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -51,7 +52,7 @@ const Blogs = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:8000/api/create-blog/', {
+      const response = await apiFetch('/api/create-blog/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { apiFetch } from '../utils/api';
 import supabase from '../connection/supabaseClient';
 
 const PanelAdmin = () => {
@@ -27,7 +28,7 @@ const PanelAdmin = () => {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/verify_token/', {
+      const response = await apiFetch('/api/verify_token/', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -66,7 +67,7 @@ const PanelAdmin = () => {
   const fetchUsers = async (tokenParam = null) => {
     const token = tokenParam || localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8000/api/users/', {
+      const response = await apiFetch('/api/users/', {
         headers: {
           'Authorization': `Bearer ${token}`,
         },
@@ -95,7 +96,7 @@ const PanelAdmin = () => {
   if (!confirmDelete) return;
 
   try {
-    const response = await fetch(`http://localhost:8000/api/admin-delete-user/`, {
+    const response = await apiFetch(`/api/admin-delete-user/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -123,7 +124,7 @@ const PanelAdmin = () => {
   const handleUpdateUser = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8000/api/admin-update-user/', {
+      const response = await apiFetch('/api/admin-update-user/', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -151,7 +152,7 @@ const PanelAdmin = () => {
   const fetchGyms = async () => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch('http://localhost:8000/api/gimnasios/', {
+      const response = await apiFetch('/api/gimnasios/', {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -179,7 +180,7 @@ const PanelAdmin = () => {
   console.log("Enviando datos del gimnasio:", newGym);
 
   try {
-    const response = await fetch('http://localhost:8000/api/gimnasios/crear/', {
+    const response = await apiFetch('/api/gimnasios/crear/', {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -250,7 +251,7 @@ const handleGymImageUpload = async (e) => {
 const handleUpdateGym = async () => {
   const token = localStorage.getItem('token');
   try {
-    const response = await fetch('http://localhost:8000/api/gimnasios/actualizar/', {
+    const response = await apiFetch('/api/gimnasios/actualizar/', {
       method: 'PUT',
       headers: {
         Authorization: `Bearer ${token}`,
@@ -286,7 +287,7 @@ const handleDeleteGym = async (id) => {
   if (!confirmDelete) return;
 
   try {
-    const response = await fetch(`http://localhost:8000/api/gimnasios/eliminar/`, {
+    const response = await apiFetch(`/api/gimnasios/eliminar/`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${token}`,

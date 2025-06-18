@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Clases.css'; // Importar el archivo CSS
+import { apiFetch } from '../utils/api';
 
 const Clases = () => {
   const [clases, setClases] = useState([]);
@@ -8,7 +9,7 @@ const Clases = () => {
   useEffect(() => {
     const fetchClases = async () => {
       try {
-        const response = await fetch('http://localhost:8000/api/clases/');
+        const response = await apiFetch('/api/clases/');
         if (!response.ok) {
           throw new Error('Error al obtener clases');
         }

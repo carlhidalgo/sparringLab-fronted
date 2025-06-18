@@ -17,6 +17,7 @@ import {
   Alert,
 } from '@mui/material';
 import './Profile.css'; // Import the CSS file
+import { apiFetch } from '../utils/api';
 
 const Profile = () => {
   const { user, updateUser, logout } = useAuth(); // Changed from useContext(AuthContext)
@@ -113,7 +114,7 @@ const Profile = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/api/crear-pago/', {
+      const response = await apiFetch('/api/crear-pago/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -211,7 +212,7 @@ const Profile = () => {
         return;
       }
 
-      const response = await fetch('http://localhost:8000/api/crear-pago/', {
+      const response = await apiFetch('/api/crear-pago/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -299,7 +300,7 @@ const Profile = () => {
       const token = localStorage.getItem('token');
       if (!token) return;
 
-      const response = await fetch('http://localhost:8000/api/delete_user/', {
+      const response = await apiFetch('/api/delete_user/', {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',

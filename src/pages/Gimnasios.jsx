@@ -4,6 +4,7 @@ import { ThemeProvider } from '@emotion/react';
 import theme from '../theme';
 import { Typography } from '@mui/material';
 import './Gimnasios.css'
+import { apiFetch } from '../utils/api';
 
 const Gimnasios = () => {
   const [gimnasios, setGimnasios] = useState([]);
@@ -16,7 +17,7 @@ const Gimnasios = () => {
     const fetchGimnasios = async () => {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:8000/api/gimnasios/', {
+        const response = await apiFetch('/api/gimnasios/', {
           headers: {
             'Authorization': `Bearer ${token}`,
           },
