@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import supabase from '../connection/supabaseClient';
 import { Link } from 'react-router-dom';
 import './Arriendo.css'
+import { apiFetch } from '../utils/api';
 
 const Reservas = () => {
   const { user, token } = useAuth();
@@ -107,7 +108,7 @@ const Reservas = () => {
     };
     console.log("Headers enviados:", headers);
 
-    const response = await apiFetch('api/reserva_ring', {
+    const response = await apiFetch('/api/reserva_ring', {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
