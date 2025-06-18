@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import supabase from '../connection/supabaseClient';
 import { Link } from 'react-router-dom';
-import './Arriendo.css'
+import './Arriendo.css'   
 import { apiFetch } from '../utils/api';
 
 const Reservas = () => {
