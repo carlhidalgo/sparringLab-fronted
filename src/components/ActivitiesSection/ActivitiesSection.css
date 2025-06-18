@@ -1,0 +1,156 @@
+@keyframes textFocusIn {
+  0% {
+    filter: blur(12px);
+    opacity: 0;
+  }
+  100% {
+    filter: blur(0);
+    opacity: 1;
+  }
+}
+
+@keyframes descriptionTextFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.activities-container {
+  background-color: #0D1B2A;
+  padding: 50px 20px;
+  text-align: center;
+  color: #F5F5F5;
+  overflow: hidden;
+}
+
+.activities-container h2,
+.boxing-explanation-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.activities-container h2.is-visible,
+.boxing-explanation-text.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.activity-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.activity-card {
+  height: 280px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden; 
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  border: 2px solid transparent;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  backface-visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.8s ease-out, 
+              transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              box-shadow 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.activity-card.from-left {
+  transform: translateX(-100px);
+}
+.activity-card.from-right {
+  transform: translateX(100px);
+}
+
+.activity-card.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Estilos para hover en tarjetas visibles */
+.activity-card.is-visible:hover {
+  transform: scale(1.15); /* Agrandar la tarjeta. translateX(0) ya está aplicado por .is-visible */
+  z-index: 10; /* Asegurar que esté por encima */
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25); /* Sombra dorada más pronunciada */
+  border-color: #D4AF37; /* Borde dorado */
+  /* overflow: visible; */ /* Considerar si hay problemas de clipping con el grid */
+}
+
+/* Clases .clicked y .description-active ya no controlan el scale/z-index principal */
+/* Se mantiene opacity en caso de que JS aún las use temporalmente */
+.activity-card.clicked,
+.activity-card.description-active {
+  opacity: 1 !important; 
+}
+
+.activity-text {
+  width: 100%;
+  padding: 15px;
+  background: linear-gradient(to top, rgba(13, 27, 42, 0.9) 20%, rgba(13, 27, 42, 0.7) 70%, transparent 100%);
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.6rem;
+  color: #FFFFFF;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+  transition: opacity 0.3s ease;
+}
+
+/* El texto del nombre de la actividad se oculta cuando la descripción es visible (en hover) */
+.activity-card.is-visible:hover .activity-text {
+  opacity: 0;
+}
+
+.activity-description-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: rgba(13, 27, 42, 0.95);
+  border-radius: inherit;
+  color: #F5F5F5;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out 0.1s; /* Pequeño delay para la aparición del contenedor */
+  pointer-events: none;
+}
+
+.activity-card.is-visible:hover .activity-description-container {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.activity-description-text {
+  font-family: 'Roboto', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  opacity: 0; 
+  max-width: 90%;
+  /* La animación se aplica directamente cuando el contenedor se vuelve visible */
+}
+
+.activity-card.is-visible:hover .activity-description-text {
+  animation: descriptionTextFadeInUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.25s forwards; /* Delay para aparecer después del contenedor */
+}

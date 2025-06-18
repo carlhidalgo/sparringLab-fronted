@@ -1,0 +1,60 @@
+.hero-section {
+    /* background-image: url('https://hips.hearstapps.com/hmg-prod/images/manny-pacquiao-poses-for-a-portrait-during-a-training-news-photo-1601364610.jpg'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /* background-attachment: fixed; */ /* Comentado para priorizar el video */
+    height: 80vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(214, 211, 11);
+    text-align: center;
+    overflow: hidden; /* Para asegurar que el video no se desborde */
+    background-color: #0D203F; /* Fallback background color */
+  }
+
+  .hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* Video sobre el background-color de .hero-section, debajo del texto */
+  }
+
+  .hero-section2 {
+    background-image: url('https://images.unsplash.com/photo-1604233098531-90b71b1b17a6?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Añadido para efecto parallax */
+    height: 80vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(253, 9, 9);
+    text-align: center;
+  }
+
+  .hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(104, 56, 56, 0); /* Actualmente transparente */
+    z-index: 1; /* Si se usa como overlay, debería ser > z-index del video y < z-index del texto */
+                 /* Con video en z-index:1, este overlay (si se hace visible) también estaría en z-index:1, */
+                 /* lo que podría causar problemas. Si es un overlay para el video, debería ser z-index: 2 y el texto z-index: 3 */
+  }
+
+  .hero-text {
+    position: relative;
+    z-index: 2; /* Texto sobre el video y el ::before si está en z-index 1 */
+    font-family: 'Raleway', sans-serif;
+    text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff, 0 0 8px #fff; /* Added for white aura effect */
+  }

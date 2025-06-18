@@ -1,0 +1,109 @@
+@keyframes crearTorneoFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(40px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.crear-torneo-container {
+  background: linear-gradient(120deg, #0D1B2A 80%, #D4AF37 100%);
+  min-height: 100vh;
+  padding: 60px 0 40px 0;
+  color: #F5F5F5;
+  font-family: 'Raleway', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.crear-torneo-title {
+  font-size: 2.2rem;
+  font-weight: bold;
+  color: #D4AF37;
+  letter-spacing: 2px;
+  text-shadow: 1px 2px 8px #0D1B2A;
+  margin-bottom: 32px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+.crear-torneo-title.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.crear-torneo-form {
+  background: #112240;
+  border-radius: 16px;
+  box-shadow: 0 6px 24px rgba(13,27,42,0.18);
+  padding: 36px 28px 28px 28px;
+  max-width: 420px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  animation: crearTorneoFadeIn 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.2s backwards;
+}
+
+.crear-torneo-label {
+  color: #D4AF37;
+  font-weight: 500;
+  margin-bottom: 6px;
+  font-size: 1.08rem;
+}
+
+.crear-torneo-input, .crear-torneo-select {
+  border-radius: 8px;
+  border: 1.5px solid #D4AF37;
+  background: #0D1B2A;
+  color: #F5F5F5;
+  font-size: 1.08rem;
+  padding: 12px 14px;
+  box-shadow: 0 2px 8px rgba(13,27,42,0.10);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.crear-torneo-input:focus, .crear-torneo-select:focus {
+  border-color: #D4AF37;
+  box-shadow: 0 4px 16px rgba(212,175,55,0.15);
+}
+
+.crear-torneo-btn {
+  background: linear-gradient(90deg, #D4AF37 60%, #0D1B2A 100%);
+  color: #0D1B2A;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(212,175,55,0.15);
+  transition: transform 0.2s, box-shadow 0.2s, color 0.2s, background 0.2s;
+  padding: 12px 0;
+  font-size: 1.1rem;
+  border: none;
+  margin-top: 10px;
+}
+.crear-torneo-btn:hover {
+  transform: scale(1.06);
+  box-shadow: 0 6px 24px rgba(212,175,55,0.25);
+  color: #D4AF37;
+  background: #0D1B2A;
+  border: 1.5px solid #D4AF37;
+}
+
+.crear-torneo-success {
+  color: #D4AF37;
+  font-size: 1.1rem;
+  margin-top: 18px;
+  text-align: center;
+  opacity: 0.92;
+}
+
+.crear-torneo-error {
+  color: #ff4d4f;
+  font-size: 1.1rem;
+  margin-top: 18px;
+  text-align: center;
+  opacity: 0.92;
+}

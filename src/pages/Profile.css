@@ -1,0 +1,207 @@
+/* frontend/src/pages/Profile.css */
+
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtleZoomIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* General container for the profile page */
+.profile-page-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  background: linear-gradient(135deg, #0d47a1 0%, #1976d2 100%); /* Blue gradient */
+  color: #ffffff; /* White text */
+  min-height: 100vh;
+  animation: fadeInSlideUp 0.8s ease-out forwards;
+}
+
+/* Header for the profile section */
+.profile-header {
+  font-size: 2.8em;
+  color: #ffd700; /* Gold color for header */
+  margin-bottom: 25px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Container for the main profile content (avatar, info, form) */
+.profile-content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  background-color: rgba(255, 255, 255, 0.95); /* Slightly transparent white background */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 900px;
+  color: #333; /* Dark text for content */
+}
+
+/* Section for the avatar */
+.profile-avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-avatar {
+  width: 180px !important; /* MUI Avatar specific */
+  height: 180px !important; /* MUI Avatar specific */
+  margin-bottom: 15px;
+  border: 5px solid #ffd700; /* Gold border for avatar */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-avatar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Section for user information display */
+.profile-info-section {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 20px;
+  background-color: #f0f4f8; /* Light blue-gray background for info section */
+  border-radius: 10px;
+  width: 100%;
+}
+
+.profile-info-section h3 {
+  color: #0d47a1; /* Dark blue for section title */
+  margin-bottom: 15px;
+  font-size: 1.8em;
+}
+
+.profile-info-section p {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #1976d2; /* Medium blue for info text */
+}
+
+.profile-info-section p strong {
+  color: #0d47a1; /* Dark blue for strong text */
+}
+
+/* Section for the form to update profile */
+.profile-form-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-form-section .MuiTextField-root .MuiInputLabel-root {
+  color: #0d47a1; /* Dark blue for labels */
+  font-weight: 500;
+}
+
+.profile-form-section .MuiTextField-root .MuiInputBase-root {
+  background-color: #ffffff;
+  border-radius: 5px;
+}
+
+.profile-form-section .MuiTextField-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2; /* Medium blue for input borders */
+}
+
+.profile-form-section .MuiTextField-root .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #0d47a1; /* Darker blue on hover */
+}
+
+.profile-form-section .MuiTextField-root .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #ffd700; /* Gold border when focused */
+  box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.3); /* Gold glow */
+}
+
+/* Styling for Material-UI buttons */
+.profile-button {
+  background-color: #1976d2 !important; /* Medium blue */
+  color: #ffffff !important; /* White text */
+  padding: 12px 25px !important;
+  font-weight: bold !important;
+  border-radius: 8px !important;
+  transition: background-color 0.3s ease, transform 0.2s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-top: 10px !important;
+}
+
+.profile-button:hover {
+  background-color: #0d47a1 !important; /* Darker blue on hover */
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+.profile-button.edit-button {
+  background-color: #ffd700 !important; /* Gold for edit button */
+  color: #0d47a1 !important; /* Dark blue text */
+}
+
+.profile-button.edit-button:hover {
+  background-color: #ffc107 !important; /* Darker gold on hover */
+  color: #000000 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-header {
+    font-size: 2.2em;
+  }
+  .profile-avatar {
+    width: 150px !important;
+    height: 150px !important;
+  }
+  .profile-content-container {
+    padding: 20px;
+  }
+  .profile-info-section h3 {
+    font-size: 1.5em;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page-container {
+    padding: 15px;
+  }
+  .profile-header {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  .profile-avatar {
+    width: 120px !important;
+    height: 120px !important;
+  }
+  .profile-content-container {
+    padding: 15px;
+  }
+  .profile-button {
+    padding: 10px 20px !important;
+    font-size: 0.9em !important;
+  }
+}

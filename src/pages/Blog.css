@@ -1,0 +1,171 @@
+/* frontend/src/pages/Blog.css */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.blog-page-container {
+  background-color: #0D1B2A; /* Azul oscuro de fondo */
+  color: #F5F5F5; /* Texto claro general */
+  padding: 40px 20px;
+  min-height: 100vh;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.blog-main-title {
+  color: #D4AF37; /* Dorado */
+  font-size: 3.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  animation: fadeInDown 1s ease-out;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Formulario para crear blog */
+.blog-create-form-container {
+  background-color: #1A2E4A; /* Un azul un poco más claro para el contenedor del form */
+  padding: 30px;
+  border-radius: 12px;
+  margin-bottom: 50px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 1s ease-out 0.3s;
+  animation-fill-mode: forwards; /* Cambiado de backwards a forwards */
+  opacity: 0; /* Necesario para que inicie invisible, forwards mantendrá el estado final */
+}
+
+.blog-create-form-container h3 {
+  color: #D4AF37;
+  margin-bottom: 25px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.blog-form-input,
+.blog-form-textarea {
+  background-color: #0D1B2A !important; /* Fondo oscuro para inputs */
+  color: #F5F5F5 !important; /* Texto claro en inputs */
+  border: 1px solid #2A3F5A !important; /* Borde sutil */
+  border-radius: 6px !important;
+  padding: 12px 15px !important;
+  margin-bottom: 20px !important;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-form-input::placeholder,
+.blog-form-textarea::placeholder {
+  color: #8A9EBB !important; /* Placeholder más claro */
+}
+
+.blog-form-input:focus,
+.blog-form-textarea:focus {
+  background-color: #0D1B2A !important;
+  color: #F5F5F5 !important;
+  border-color: #D4AF37 !important; /* Borde dorado al enfocar */
+  box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.25) !important; /* Resplandor dorado */
+}
+
+.blog-create-button {
+  background-color: #D4AF37 !important; /* Botón dorado */
+  border-color: #D4AF37 !important;
+  color: #0D1B2A !important; /* Texto oscuro en botón dorado */
+  font-weight: bold !important;
+  padding: 10px 25px !important;
+  border-radius: 6px !important;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: block !important; /* Para centrarlo con margin: auto */
+  margin: 20px auto 0 auto !important;
+}
+
+.blog-create-button:hover {
+  background-color: #B89530 !important; /* Dorado más oscuro al pasar el cursor */
+  border-color: #B89530 !important;
+  color: #0D1B2A !important;
+  transform: translateY(-2px);
+}
+
+/* Listado de Blogs */
+.blog-list-container {
+  animation: fadeInUp 1s ease-out 0.6s;
+  animation-fill-mode: forwards; /* Cambiado de backwards a forwards */
+  opacity: 0; /* Necesario para que inicie invisible, forwards mantendrá el estado final */
+}
+
+.blog-card {
+  background-color: #1A2E4A; /* Mismo azul que el form container */
+  border: 1px solid #2A3F5A;
+  border-left: 5px solid #D4AF37; /* Acento dorado a la izquierda */
+  border-radius: 8px;
+  margin-bottom: 25px;
+  padding: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.blog-card:hover {
+  transform: translateY(-5px) scale(1.01);
+  box-shadow: 0 10px 20px rgba(212, 175, 55, 0.15);
+}
+
+.blog-card-title {
+  color: #D4AF37;
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+
+.blog-card-content {
+  color: #C5D5E5; /* Texto del contenido un poco más suave */
+  font-size: 1rem;
+  line-height: 1.7;
+  margin-bottom: 15px;
+  white-space: pre-wrap; /* Para respetar saltos de línea en el contenido */
+}
+
+.blog-card-meta {
+  font-size: 0.85rem;
+  color: #8A9EBB; /* Metadatos más sutiles */
+}
+
+.blog-card-meta strong {
+  color: #A0B4CC; /* Nombre del autor un poco más destacado */
+}
+
+/* Mensajes de carga, error o sin posts */
+.blog-message {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #A0B4CC;
+  padding: 30px;
+  animation: fadeIn 1s ease-out;
+}

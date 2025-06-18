@@ -1,0 +1,68 @@
+.footer {
+  background-color: #0D203F; /* Azul marino oscuro */
+  color: #F0F0F0; /* Blanco hueso para texto principal */
+  padding: 40px 0;
+  text-align: center;
+  font-family: 'Arial', sans-serif; /* Fuente limpia, considera una más temática si la tienes */
+  border-top: 3px solid #FFD700; /* Borde superior amarillo (dorado) */
+}
+
+.footer h5 {
+  font-size: 22px;
+  color: #FFD700; /* Título en amarillo */
+  margin-bottom: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.footer p {
+  margin: 10px 0;
+  font-size: 15px;
+  color: #A0AEC0; /* Gris frío para texto secundario */
+}
+
+.footer-social-links {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.footer-social-links a {
+  margin: 0 12px;
+  color: #F0F0F0; /* Iconos en blanco hueso */
+  font-size: 24px; /* Iconos más grandes */
+  transition: color 0.3s ease;
+}
+
+.footer-social-links a:hover {
+  color: #FFD700; /* Iconos amarillos al pasar el mouse */
+}
+
+.footer .btn-custom-join {
+  background-color: #FFD700; /* Botón con fondo amarillo */
+  color: #0D203F; /* Texto del botón en azul marino */
+  border: none;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 5px;
+  margin-top: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+  text-decoration: none; /* En caso de que se use una etiqueta <a> */
+}
+
+.footer .btn-custom-join:hover {
+  background-color: #e6c300; /* Amarillo más oscuro al pasar el mouse */
+  color: #0A1931; /* Azul ligeramente más oscuro para el texto */
+}
+
+.footer-copyright {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #1A2A4A; /* Separador sutil (azul más oscuro) */
+  font-size: 13px;
+  color: #A0AEC0;
+}

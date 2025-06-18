@@ -1,0 +1,114 @@
+.navbar-black {
+  background-color: #0D203F !important; 
+  border-bottom: 3px solid #FFD700 !important;
+  font-family: 'Raleway', sans-serif;
+  transition: background-color 0.3s ease, border-bottom-color 0.3s ease;
+  padding-top: 8px; 
+  padding-bottom: 8px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+/* State when Navbar should be transparent (e.g., over HeroSection) */
+.navbar-transparent {
+  background: none !important;
+  border-bottom-color: transparent !important;
+}
+
+.navbar-transparent .nav-link,
+.navbar-transparent .nav-item .nav-link {
+  color: #FFFFFF !important;
+  text-shadow: 0px 0px 4px rgba(0, 0, 0, 0.6);
+  background: none !important; 
+}
+
+.navbar-transparent .container,
+.navbar-transparent .navbar-collapse,
+.navbar-transparent .navbar-nav,
+.navbar-transparent .navbar-brand,
+.navbar-transparent .navbar-brand img {
+    background: none !important;
+}
+
+/* General NavLink styles */
+.navbar-black .nav-item .nav-link,
+.navbar-black .nav-link {
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 1px;
+  color: #FFFFFF !important; /* Default text color is white */
+  transition: color 0.3s ease, background-color 0.3s ease; 
+  padding: 8px 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  border-radius: 3px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Underline animation */
+.navbar-black .nav-item .nav-link::after,
+.navbar-black .nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background-color: #FFD700; /* Gold underline */
+  transition: width 0.3s ease-in-out;
+}
+
+.navbar-black .nav-item .nav-link:hover::after,
+.navbar-black .nav-link:hover::after {
+  width: calc(100% - 24px);
+}
+
+/* Brand styles */
+.navbar-brand {
+  padding: 0;
+  margin-right: 15px;
+}
+
+.navbar-brand img {
+  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.25));
+  transition: filter 0.3s ease, transform 0.3s ease;
+}
+
+.navbar-brand:hover img {
+  filter: drop-shadow(0px 0px 8px rgba(255, 215, 0, 0.5));
+  transform: scale(1.05);
+}
+
+/* Hover for links when Navbar is OPAQUE (default .navbar-black state without .navbar-transparent) */
+.navbar-black:not(.navbar-transparent) .nav-link:hover,
+.navbar-black:not(.navbar-transparent) .nav-item .nav-link:hover {
+  color: #FFD700 !important;
+  background-color: #1A2A4A !important; 
+}
+
+/* Hover for links when Navbar is TRANSPARENTE */
+.navbar-transparent .nav-link:hover,
+.navbar-transparent .nav-item .nav-link:hover {
+  color: #FFD700 !important; /* Only changes text color */
+}
+
+.navbar-nav .nav-link,
+.navbar-nav .nav-item .nav-link {
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 2s ease-in-out;
+}
