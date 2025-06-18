@@ -31,11 +31,13 @@ const Reservas = () => {
   const fetchBoxerProfile = async () => {
     if (!user || !user.id) return;
 
-    const { data, error } = await supabase
-      .from('user_profiles')
-      .select('id')
-      .eq('id', user.id)
-      .single();
+    const { data: reservas, error: conflictError } = await supabase
+    .from('reservas')
+    .select('*')
+    .eq('fecha', fecha)
+    .eq('ring_id', selectedRing)
+    .lt('hora_inicio', horaFinCalculada)
+    .gt('hora_fin', horaInicio);
 
     if (error) {
       console.error('Error al obtener el perfil del boxeador:', error.message);
