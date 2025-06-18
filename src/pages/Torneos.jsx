@@ -67,19 +67,20 @@ function Torneos() {
 
   return (
     <div className="torneos-container">
-      <div className="torneos-header">
-        <h2 className="torneos-title" ref={titleRef}>Torneos</h2>
-        <button className="torneos-crear-btn" onClick={() => navigate('/Creartorneo')}>
+      <div className="torneos-header" style={{ flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 18, marginBottom: 32 }}>
+        <h2 className="torneos-title" ref={titleRef} style={{ textAlign: 'center' }}>Torneos</h2>
+        <input
+          className="torneos-search"
+          type="text"
+          placeholder="Buscar torneo"
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ marginBottom: 18, textAlign: 'center' }}
+        />
+        <button className="torneos-crear-btn" style={{ marginLeft: 0, alignSelf: 'center' }} onClick={() => navigate('/Creartorneo')}>
           Crear Torneo
         </button>
       </div>
-      <input
-        className="torneos-search"
-        type="text"
-        placeholder="Buscar torneo"
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-      />
       <div className="torneos-grid">
         {filteredTournaments.length > 0 ? (
           filteredTournaments.map((tournament, idx) => (
