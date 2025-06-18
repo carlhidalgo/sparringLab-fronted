@@ -61,44 +61,33 @@ const Gimnasios = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="custom1">
-        <Typography variant="h3" gutterBottom>
-          Gimnasios asociados
-        </Typography>
-        <Typography
-          variant="h3"
-          gutterBottom
-          sx={{ fontSize: '17px', fontWeight: 500}}>
-          <div className="row">
-            {gimnasios.length === 0 ? (
-              <p>No hay gimnasios registrados.</p>
-            ) : (
-              gimnasios.map((gym) => (
-                <div key={gym.id} className="col-md-4 mb-4">
-                  <div className="card h-100">
-                    {gym.imagen_url && (
-                      <img
-                        src={gym.imagen_url}
-                        alt={gym.nombre}
-                        className="card-img-top"
-                        style={{ height: '200px', objectFit: 'cover'
-                         }}
-                      />
-                    )}
-                    <div className="card-body">
-                      <h4 className="card-title">{gym.nombre}</h4>
-                      <p className="card-text">
-                        <strong>Dirección:</strong> {gym.direccion}<br />
-                        <strong>Ciudad:</strong> {cityName[gym.ciudad] || 'Desconocida'}<br />
-                        <strong>Teléfono:</strong> {gym.telefono}
-                      </p>
-                    </div>
+      <div className="gym-main-container">
+        <h2 className="gym-title">Gimnasios asociados</h2>
+        <div className="gym-list">
+          {gimnasios.length === 0 ? (
+            <p>No hay gimnasios registrados.</p>
+          ) : (
+            gimnasios.map((gym, idx) => (
+              <div key={gym.id} className="gym-card visible" style={{ animationDelay: `${0.1 * idx + 0.2}s` }}>
+                {gym.imagen_url && (
+                  <img
+                    src={gym.imagen_url}
+                    alt={gym.nombre}
+                    className="gym-img"
+                  />
+                )}
+                <div className="gym-card-content">
+                  <div className="gym-nombre">{gym.nombre}</div>
+                  <div className="gym-info">
+                    <strong>Dirección:</strong> {gym.direccion}<br />
+                    <strong>Ciudad:</strong> {cityName[gym.ciudad] || 'Desconocida'}<br />
+                    <strong>Teléfono:</strong> {gym.telefono}
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        </Typography>
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </ThemeProvider>
   );
