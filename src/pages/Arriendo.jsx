@@ -146,16 +146,17 @@ const Reservas = () => {
   }
 
   return (
-    <div className="container mt-4">
-      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+    <div className="arriendo-container">
+      {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label>Selecciona un Ring:</label>
+      <h2 className="arriendo-header">Reservar Ring</h2>
+      <form className="arriendo-form" onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label className="form-label">Selecciona un Ring:</label>
           <select
             value={selectedRing}
             onChange={(e) => setSelectedRing(e.target.value)}
-            className="form-select"
+            className="form-control"
             required
           >
             <option value="">-- Selecciona --</option>
@@ -167,8 +168,8 @@ const Reservas = () => {
           </select>
         </div>
 
-        <div className="mb-3">
-          <label>Fecha:</label>
+        <div className="form-group">
+          <label className="form-label">Fecha:</label>
           <input
             type="date"
             className="form-control"
@@ -179,8 +180,8 @@ const Reservas = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label>Hora de Inicio:</label>
+        <div className="form-group">
+          <label className="form-label">Hora de Inicio:</label>
           <input
             type="time"
             className="form-control"
@@ -190,8 +191,8 @@ const Reservas = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label>Email del Oponente:</label>
+        <div className="form-group">
+          <label className="form-label">Email del Oponente:</label>
           <input
             type="email"
             className="form-control"
@@ -201,8 +202,8 @@ const Reservas = () => {
           />
         </div>
 
-        <div className="mb-3">
-          <label>Descripción:</label>
+        <div className="form-group">
+          <label className="form-label">Descripción:</label>
           <textarea
             className="form-control"
             value={descripcion}
@@ -211,7 +212,7 @@ const Reservas = () => {
           />
         </div>
 
-        <button type="submit" className="btn btn-primary" disabled={loading}>
+        <button type="submit" className="arriendo-button" disabled={loading}>
           {loading ? (
             <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
           ) : (
@@ -220,7 +221,7 @@ const Reservas = () => {
         </button>
       </form>
 
-      <Link to="/calendario" className="btn btn-secondary mt-3">
+      <Link to="/calendario" className="arriendo-button" style={{background: '#1976d2', color: '#fff', marginTop: 20, textAlign: 'center', textDecoration: 'none'}}>
         Ver Calendario
       </Link>
     </div>
