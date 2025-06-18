@@ -1,152 +1,232 @@
 import React, { useEffect, useState } from 'react';
-import { addHours, format, parseISO, differenceInHours } from 'date-fns';
-import supabase from '../connection/supabaseClient';
 import { useAuth } from '../context/AuthContext';
+import supabase from '../connection/supabaseClient';
 import { Link } from 'react-router-dom';
-import './Arriendo.css';
+import './Arriendo.css'
 
-const Arriendo = () => {
-  const { user } = useAuth();
-  const [implementoSeleccionado, setImplementoSeleccionado] = useState('');
-  const [implementos, setImplementos] = useState([]);
+const Reservas = () => {
+  const { user, token } = useAuth();
+  const [rings, setRings] = useState([]);
+  const [selectedRing, setSelectedRing] = useState('');
   const [fecha, setFecha] = useState('');
   const [horaInicio, setHoraInicio] = useState('');
-  const [cantidadHoras, setCantidadHoras] = useState(1);
-  const [error, setError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
+  const [horaFin, setHoraFin] = useState('');
+  const [boxerId, setBoxerId] = useState(null);
+  const [emailOponente, setEmailOponente] = useState('');
+  const [descripcion, setDescripcion] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const fetchRings = async () => {
+    const { data, error } = await supabase.from('rings').select('*');
+    if (error) {
+      console.error('Error al obtener rings:', error.message);
+      setErrorMessage('Error al obtener rings');
+    } else {
+      setRings(data);
+    }
+  };
+
+  const fetchBoxerProfile = async () => {
+    if (!user || !user.id) return;
+
+    const { data, error } = await supabase
+      .from('user_profiles')
+      .select('id')
+      .eq('id', user.id)
+      .single();
+
+    if (error) {
+      console.error('Error al obtener el perfil del boxeador:', error.message);
+      setErrorMessage('Error al obtener el perfil del boxeador');
+    } else if (data) {
+      setBoxerId(data.id);
+    }
+  };
 
   useEffect(() => {
-    const fetchImplementos = async () => {
-      const { data, error } = await supabase.from('implementos').select('*');
-      if (error) {
-        console.error('Error al obtener implementos:', error.message);
-        setError('Error al obtener implementos');
-      } else {
-        setImplementos(data);
-      }
-    };
-
-    fetchImplementos();
-  }, []);
+    if (user) {
+      fetchBoxerProfile();
+      fetchRings();
+    }
+  }, [user]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!implementoSeleccionado || !fecha || !horaInicio || !cantidadHoras) {
+    if (!boxerId || !selectedRing || !fecha || !horaInicio || !emailOponente || !descripcion) {
       alert('Por favor, completa todos los campos.');
       return;
     }
 
-    const horaFin = new Date(`${fecha}T${horaInicio}`);
-    horaFin.setHours(horaFin.getHours() + cantidadHoras);
-
-    const reservasConflicto = await supabase
-      .from('reservas')
-      .select('*')
-      .eq('fecha', fecha)
-      .eq('implemento_id', implementoSeleccionado)
-      .or(`hora_inicio.lte.${horaFin.toISOString()},hora_fin.gte.${horaInicio}`);
-
-    if (reservasConflicto.data.length > 0) {
-      setError('El implemento ya está reservado en ese horario');
+    if (emailOponente.trim().toLowerCase() === user.email.trim().toLowerCase()) {
+      alert('No puedes reservar un combate contra ti mismo.');
       return;
     }
 
-    const { data, error: reservaError } = await supabase
-      .from('reservas')
-      .insert([
-        {
-          user_id: user.id,
-          implemento_id: implementoSeleccionado,
-          fecha,
-          hora_inicio: horaInicio,
-          hora_fin: horaFin.toISOString(),
-          cantidad_horas: cantidadHoras,
-        },
-      ]);
+    const calculateHoraFin = (inicio) => {
+      const [h, m] = inicio.split(':').map(Number);
+      const date = new Date();
+      date.setHours(h);
+      date.setMinutes(m + 45);
+      const hh = String(date.getHours()).padStart(2, '0');
+      const mm = String(date.getMinutes()).padStart(2, '0');
+      return `${hh}:${mm}`;
+    };
 
-    if (reservaError) {
-      setError('Error al guardar la reserva');
-      console.error('Error al guardar la reserva:', reservaError.message);
-    } else {
-      setSuccessMessage('Reserva realizada con éxito');
-      setImplementoSeleccionado('');
+    const horaFinCalculada = calculateHoraFin(horaInicio);
+
+    setLoading(true);
+    setErrorMessage('');
+
+    console.log('horaInicio:', horaInicio, 'horaFin:', horaFinCalculada);
+
+    const { data: reservas, error: conflictError } = await supabase
+      .from('reservas')
+      .select('*')
+      .eq('fecha', fecha)
+      .eq('ring_id', selectedRing)
+      .or(`hora_inicio.lte."${horaFinCalculada}",hora_fin.gte."${horaInicio}"`);
+
+    if (conflictError) {
+      console.error('Error al verificar conflictos:', conflictError.message);
+      setLoading(false);
+      setErrorMessage('Error al verificar conflictos de horario');
+      return;
+    }
+
+    if (reservas.length > 0) {
+      setLoading(false);
+      setErrorMessage('El ring ya está reservado en ese horario');
+      return;
+    }
+
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    };
+    console.log("Headers enviados:", headers);
+
+    const response = await apiFetch('api/reserva_ring', {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        boxer_id: boxerId,
+        ring_id: selectedRing,
+        fecha,
+        hora_inicio: horaInicio,
+        hora_fin: horaFinCalculada,
+        estado: 'pendiente',
+        opponent_email: emailOponente,
+        descripcion: descripcion,
+      }),
+    });
+
+    const data = await response.json();
+
+    setLoading(false);
+
+    if (response.ok) {
+      alert('Reserva registrada con éxito');
+      setSelectedRing('');
       setFecha('');
       setHoraInicio('');
-      setCantidadHoras(1);
+      setHoraFin('');
+      setEmailOponente('');
+      setDescripcion('');
+    } else {
+      console.error('Error al guardar reserva:', data.error);
+      setErrorMessage(data.error || 'Error al guardar reserva');
     }
   };
 
-  return (
-    <div className="arriendo-container">
-      <h2 className="arriendo-header">Arriendo de Implementos de Boxeo</h2>
-      {error && <p className="error-message">{error}</p>}
-      {successMessage && <p className="success-message">{successMessage}</p>}
+  if (!user) {
+    return <p>Cargando usuario...</p>;
+  }
 
-      <form onSubmit={handleSubmit} className="arriendo-form">
-        <div className="form-group">
-          <label htmlFor="implemento" className="form-label">Implemento:</label>
+  return (
+    <div className="container mt-4">
+      {errorMessage && <div className="alert alert-danger">{errorMessage}</div>}
+
+      <form onSubmit={handleSubmit}>
+        <div className="mb-3">
+          <label>Selecciona un Ring:</label>
           <select
-            id="implemento"
-            value={implementoSeleccionado}
-            onChange={(e) => setImplementoSeleccionado(e.target.value)}
+            value={selectedRing}
+            onChange={(e) => setSelectedRing(e.target.value)}
+            className="form-select"
             required
-            className="form-control"
           >
-            <option value="">Selecciona un implemento</option>
-            {implementos.map((imp) => (
-              <option key={imp.id} value={imp.id}>
-                {imp.nombre} - {imp.descripcion}
+            <option value="">-- Selecciona --</option>
+            {rings.map((ring) => (
+              <option key={ring.id} value={ring.id}>
+                {ring.nombre} {ring.ubicacion}
               </option>
             ))}
           </select>
         </div>
-        <div className="form-group">
-          <label htmlFor="fecha" className="form-label">Fecha:</label>
+
+        <div className="mb-3">
+          <label>Fecha:</label>
           <input
             type="date"
-            id="fecha"
+            className="form-control"
             value={fecha}
             onChange={(e) => setFecha(e.target.value)}
+            min={new Date().toISOString().split('T')[0]}
             required
-            className="form-control"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="horaInicio" className="form-label">Hora de Inicio:</label>
+
+        <div className="mb-3">
+          <label>Hora de Inicio:</label>
           <input
             type="time"
-            id="horaInicio"
+            className="form-control"
             value={horaInicio}
             onChange={(e) => setHoraInicio(e.target.value)}
             required
-            className="form-control"
           />
         </div>
-        <div className="form-group">
-          <label htmlFor="cantidadHoras" className="form-label">Cantidad de Horas:</label>
+
+        <div className="mb-3">
+          <label>Email del Oponente:</label>
           <input
-            type="number"
-            id="cantidadHoras"
-            value={cantidadHoras}
-            onChange={(e) => setCantidadHoras(parseInt(e.target.value, 10))}
-            min="1"
-            required
+            type="email"
             className="form-control"
-            placeholder="Número de horas"
+            value={emailOponente}
+            onChange={(e) => setEmailOponente(e.target.value)}
+            required
           />
         </div>
-        <button type="submit" className="arriendo-button">Confirmar Arriendo</button>
+
+        <div className="mb-3">
+          <label>Descripción:</label>
+          <textarea
+            className="form-control"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+            required
+          />
+        </div>
+
+        <button type="submit" className="btn btn-primary" disabled={loading}>
+          {loading ? (
+            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          ) : (
+            'Reservar'
+          )}
+        </button>
       </form>
 
-      <Link to="/calendario" className="btn btn-secondary w-100 mt-3">
-        Ver Calendario de Reservas
+      <Link to="/calendario" className="btn btn-secondary mt-3">
+        Ver Calendario
       </Link>
     </div>
   );
 };
 
-export default Arriendo;
+export default Reservas;
 
 
 
