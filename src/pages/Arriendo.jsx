@@ -30,19 +30,16 @@ const Reservas = () => {
 
   const fetchBoxerProfile = async () => {
     if (!user || !user.id) return;
-
-    const { data: reservas, error: conflictError } = await supabase
-    .from('reservas')
-    .select('*')
-    .eq('fecha', fecha)
-    .eq('ring_id', selectedRing)
-    .lt('hora_inicio', horaFinCalculada)
-    .gt('hora_fin', horaInicio);
+    const { data, error } = await supabase
+      .from('boxers')
+      .select('id')
+      .eq('user_id', user.id)
+      .single();
 
     if (error) {
       console.error('Error al obtener el perfil del boxeador:', error.message);
       setErrorMessage('Error al obtener el perfil del boxeador');
-    } else if (data) {
+    } else {
       setBoxerId(data.id);
     }
   };
