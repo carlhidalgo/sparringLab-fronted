@@ -88,7 +88,7 @@ const Calendario = () => {
 
                 const mapped = reservas.map((r) => ({
                     title: `Ring: ${r.ring_id?.nombre || 'N/A'}`,
-                    sparring: `🥊 ${r.user_profiles?.first_name || 'Usuario'} ${r.user_profiles?.last_name || ''} vs ${opponentMap[r.opponent_email] || 'Oponente por confirmar'}`,
+                    sparring: `${r.user_profiles?.last_name || ''} vs ${opponentMap[r.opponent_email]?.split(' ').slice(-1)[0] || 'Oponente por confirmar'}`,
                     start: new Date(`${r.fecha}T${r.hora_inicio}`),
                     end: new Date(`${r.fecha}T${r.hora_fin}`),
                     allDay: false, // Asegurar que los eventos no se marquen como de día completo por defecto

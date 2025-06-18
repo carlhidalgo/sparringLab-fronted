@@ -10,76 +10,60 @@ const Contacto = () => {
     <ThemeProvider theme={theme}>
       <div className="contacto-page-container">
         <h1 className="contacto-title mb-4">Comunícate con nosotros</h1>
-        <div className="row">
-          <div className="col-md-6">
-            <p className="contacto-intro-text">
+        <div className="activity-row" style={{ gap: 20, marginTop: 20, flexWrap: 'wrap', animation: 'none', opacity: 1 }}>
+          <div style={{ flex: 2, minWidth: 320 }}>
+            <p className="contacto-intro-text" style={{ opacity: 1, animation: 'none' }}>
               ¿Tienes alguna duda? Estamos encantados de ayudarte.
             </p>
-            <p className="contacto-intro-text">
+            <p className="contacto-intro-text" style={{ opacity: 1, animation: 'none' }}>
               Aquí tienes nuestros medios de contacto.
             </p>
-            <div className='activity-row'>
-              <div
-                className="activity-card"
-              >
+            <div className='activity-row' style={{ gap: 20, marginTop: 0, flexWrap: 'wrap', animation: 'none', opacity: 1 }}>
+              <div className="activity-card" style={{ opacity: 1, animation: 'none' }}>
                 <h2>
                   <MdPhone className="icon" />
-                  <Typography variant="h2" component="span" sx={{ fontSize: '1.6rem !important', color: '#F5F5F5 !important' }}>
+                  <span style={{ fontSize: '1.6rem', color: '#F5F5F5', fontWeight: 500 }}>
                     Para llamadas:
-                  </Typography>
+                  </span>
                 </h2>
-                <Typography variant="subtitle1" component="h6" sx={{ color: '#F5F5F5 !important', fontSize: '18px' }}>
+                <span style={{ color: '#F5F5F5', fontSize: '18px' }}>
                   Charla con uno de nuestros miembros!
-                </Typography>
+                </span>
                 <ul className="contact-info-list">
-                  <li>
-                    <Typography variant="body1" component="span" sx={{ color: '#F5F5F5 !important', fontSize: '17px', fontWeight: 400 }}>
-                      Fono 1: +56 9 7952 7537
-                    </Typography>
-                  </li>
-                  <li>
-                    <Typography variant="body1" component="span" sx={{ color: '#F5F5F5 !important', fontSize: '17px', fontWeight: 400 }}>
-                      Fono 2: +56 9 9999 9999
-                    </Typography>
-                  </li>
-                  <li>
-                    <Typography variant="body1" component="span" sx={{ color: '#F5F5F5 !important', fontSize: '17px', fontWeight: 400}}>
-                      Fono 3: +56 9 8888 8888
-                    </Typography>
-                  </li>
+                  <li style={{ color: '#e0e0e0' }}>Fono 1: +56 9 7952 7537</li>
+                  <li style={{ color: '#e0e0e0' }}>Fono 2: +56 9 9999 9999</li>
+                  <li style={{ color: '#e0e0e0' }}>Fono 3: +56 9 8888 8888</li>
                 </ul>
               </div>
-              <div
-                className="activity-card"
-              >
-                 <h2>
+              <div className="activity-card" style={{ opacity: 1, animation: 'none' }}>
+                <h2>
                   <MdEmail className="icon" />
-                  <Typography variant="h2" component="span" sx={{ fontSize: '1.6rem !important', color: '#F5F5F5 !important' }}>
+                  <span style={{ fontSize: '1.6rem', color: '#F5F5F5', fontWeight: 500 }}>
                     Soporte por Correo:
-                  </Typography>
+                  </span>
                 </h2>
-                <Typography variant="subtitle1" component="h6" sx={{ color: '#F5F5F5 !important', fontSize: '17px', fontWeight: 500}}>
-                  A veces nuestras líneas podrán estar ocupadas,
-                  intenta nuestros correos electrónicos!
-                </Typography>
+                <span style={{ color: '#F5F5F5', fontSize: '17px', fontWeight: 500 }}>
+                  A veces nuestras líneas podrán estar ocupadas, intenta nuestros correos electrónicos!
+                </span>
                 <ul className="contact-info-list">
-                  <li>
-                    <Typography variant="body1" component="span" sx={{ color: '#F5F5F5 !important', fontSize: '17px', fontWeight: 400}}>
-                      - carl.hidalgo@duocuc.cl <br />
-                      - masterspawnx@gmail.com <br />
-                      - karloxx534@gmail.com <br />
-                      - karlozoh@gmail.com <br />
-                    </Typography>
-                  </li>
+                  <li style={{ color: '#e0e0e0' }}>- carl.hidalgo@duocuc.cl</li>
+                  <li style={{ color: '#e0e0e0' }}>- masterspawnx@gmail.com</li>
+                  <li style={{ color: '#e0e0e0' }}>- karloxx534@gmail.com</li>
+                  <li style={{ color: '#e0e0e0' }}>- karlozoh@gmail.com</li>
                 </ul>
               </div>
             </div>
           </div>
           <div
-            className="col-md-6 contact-image-column"
+            className="contact-image-column"
             style={{
               backgroundImage:
                 "url('https://cdn.evolve-mma.com/wp-content/uploads/2021/09/manny-pacquiao-retires-from-boxing.jpg')",
+              flex: 1,
+              minWidth: 280,
+              marginLeft: 20,
+              opacity: 1,
+              animation: 'none'
             }}
           />
         </div>
