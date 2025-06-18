@@ -73,7 +73,7 @@ function CrearTorneo() {
             });
             if (res.ok) {
                 setSuccessMsg('¡Torneo creado con éxito!');
-                setTimeout(() => navigate('/torneo'), 1500);
+                setTimeout(() => navigate('/torneos'), 1500);
             } else {
                 const errData = await res.json();
                 setError(errData.detail || 'Error al crear torneo.');
